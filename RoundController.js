@@ -44,7 +44,6 @@ const RoundController = {
                 View.time_render(Timer.time_to_object(Timer.short_break_time))
                 Emitter.emit("notify-short-break")
             }
-
         }
 
         clearInterval(Timer.interval)

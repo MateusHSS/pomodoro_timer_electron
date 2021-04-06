@@ -35,8 +35,6 @@ const Timer = {
     },
 
     init(time){
-        // Emitter.emit("countdown-start")
-        console.log(parseFloat(localStorage.getItem("short-break")))
         Timer.time = Timer.get_time() || time
         Timer.current_time = isNaN(time) ? Timer.get_time() : time
         Timer.interval = setInterval(Timer.countdown, 1000)

@@ -1,6 +1,7 @@
 const View = {
     time_render({ hours, minutes, seconds }) {
         document.getElementById('time').innerHTML = `${hours}:${minutes}:${seconds}`
+        window.document.title = `${hours}:${minutes}:${seconds}`
     },
     button_render({ message, background, action = null }){
         let object = document.getElementById("action-button")
@@ -8,7 +9,7 @@ const View = {
         object.innerHTML = message
         object.style.background = background
         object.onclick = action
-    }
+    },
 }
 
 export { View }
