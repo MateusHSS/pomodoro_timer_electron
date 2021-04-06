@@ -9,6 +9,14 @@
     font-size: 180%;
 }
 
+#settings-icon {
+    width: 100%;
+    padding-left: 1rem;
+    top: 1rem;
+    justify-content: left;
+    position: absolute;
+}
+
 body {
     min-height: 100vh;
 
