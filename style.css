@@ -21,3 +21,24 @@ body {
 span {
     font-size: 300%;
 }
+
+.button {
+    padding: 0.5rem 1.5rem;
+    border-radius: 0.3rem;
+
+    font-weight: bold;
+
+    color: white;
+
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+
+    cursor: pointer;
+}
+
+.start{
+    background: rgb(25, 170, 196);
+}
+
+.stop{
+    background: rgb(235, 46, 46);
+}

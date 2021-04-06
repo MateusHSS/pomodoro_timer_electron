@@ -1,12 +1,16 @@
 import { Emitter } from "./Emitter.js"
 import { View } from "./View.js"
+import { RoundController } from "./RoundController.js"
 
 const Timer = {
-    time: 0.05 * 60,
-    rest_time: 0.1 * 60,
+    time: 0.1 * 60,
+    short_break_time: 0.05 * 60,
+    long_break_time: 0.2 * 60,
+    break: false,
+    break_type: 0,
     current_time: null,
     round_set: 4,
-    current_round: 1,
+    current_round: 0,
     interval: null,
 
     time_to_hours: time => Math.floor(time/3600),
@@ -15,44 +19,45 @@ const Timer = {
 
     format_time: time => String(time).padStart(2, '0'),
 
+    time_to_object: time => {
+        return {
+            hours: Timer.format_time(Timer.time_to_hours(time)),
+            minutes: Timer.format_time(Timer.time_to_minutes(time)),
+            seconds: Timer.format_time(Timer.time_to_seconds(time))
+        }
+    },
+
     init(time){
         // Emitter.emit("countdown-start")
 
-        Timer.current_time = time || Timer.time
+        Timer.current_time = isNaN(time) ? Timer.time : time
         Timer.interval = setInterval(Timer.countdown, 1000)
-    },
 
-    start_round(){
-        (Timer.current_round != 0) ? Timer.init() : Timer.init(Timer.rest_time)
-    },
-
-    next_round(){
-        if(Timer.current_round == Timer.round_set){
-            Timer.current_round = 0;
-        }else{
-            Timer.current_round++;
-        }
-
-        Timer.start_round()
+        View.button_render({ message: 'STOP', background: 'red', action: Timer.pause_countdown })
     },
 
     countdown(){
-        const hours = Timer.format_time(Timer.time_to_hours(Timer.current_time))
-        const minutes = Timer.format_time(Timer.time_to_minutes(Timer.current_time))
-        const seconds = Timer.format_time(Timer.time_to_seconds(Timer.current_time))
-
-        View.render({
-            hours,
-            minutes,
-            seconds
-        })
+        View.time_render(Timer.time_to_object(Timer.current_time - 1))
 
         if(Timer.current_time == 0){
             clearInterval(Timer.interval)
             Emitter.emit("countdown-end")
+
+            return
         }
 
         Timer.current_time--;
+    },
+
+    pause_countdown(){
+        clearInterval(Timer.interval)
+
+        View.button_render({ message: 'CONTINUE', background: 'cyan', action: Timer.continue_countdown })
+    },
+
+    continue_countdown(){
+        View.button_render({ message: 'STOP', background: 'red', action: Timer.pause_countdown })
+        Timer.interval = setInterval(Timer.countdown, 1000)
     }
 }
 
