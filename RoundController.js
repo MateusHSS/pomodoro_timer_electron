@@ -33,7 +33,7 @@ const RoundController = {
 
             if(Timer.current_round == Timer.round_set - 1){
                 Timer.break_type = LONG_BREAK
-                Timer.current_round = 1
+                Timer.current_round = 0
     
                 View.time_render(Timer.time_to_object(Timer.long_break_time))
                 Emitter.emit("notify-long-break")

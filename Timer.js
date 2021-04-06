@@ -1,20 +1,19 @@
 import { Emitter } from "./Emitter.js"
 import { View } from "./View.js"
-import { RoundController } from "./RoundController.js"
 
 const Timer = {
-    time: 0.1 * 60,
-    short_break_time: 0.05 * 60,
-    long_break_time: 0.2 * 60,
+    time: 25 * 60,
+    short_break_time: parseFloat(localStorage.getItem("short-break")) * 60 || 5 * 60,
+    long_break_time: parseFloat(localStorage.getItem("long-break")) * 60 || 15 * 60,
     break: false,
     break_type: 0,
     current_time: null,
-    round_set: 4,
+    round_set: parseInt(localStorage.getItem("long-break-interval")) || 4,
     current_round: 0,
     interval: null,
 
     time_to_hours: time => Math.floor(time/3600),
-    time_to_minutes: time => (Math.floor(time/60) < 60) ? Math.floor(time/60) : 0,
+    time_to_minutes: time => (Math.floor(time/60) < 60) ? Math.floor(time/60) : Math.floor(time/60) - 60,
     time_to_seconds: time => time % 60,
 
     format_time: time => String(time).padStart(2, '0'),
@@ -27,10 +26,19 @@ const Timer = {
         }
     },
 
+    get_time: () => {
+        let hours = parseInt(localStorage.getItem("work-hours")) || 0
+        let minutes = parseInt(localStorage.getItem("work-minutes")) || 0
+        let seconds = parseInt(localStorage.getItem("work-seconds")) || 0
+
+        return ((hours * 3600) + (minutes * 60) + seconds)
+    },
+
     init(time){
         // Emitter.emit("countdown-start")
-
-        Timer.current_time = isNaN(time) ? Timer.time : time
+        console.log(parseFloat(localStorage.getItem("short-break")))
+        Timer.time = Timer.get_time() || time
+        Timer.current_time = isNaN(time) ? Timer.get_time() : time
         Timer.interval = setInterval(Timer.countdown, 1000)
 
         View.button_render({ message: 'STOP', background: 'red', action: Timer.pause_countdown })

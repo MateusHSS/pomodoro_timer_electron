@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings</title>
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@100;400;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h3 id="title">CONFIGURAÇÕES</h3>
+        <div id="close-icon">
+            <a href="./index.html"><img src="./img/1x/outline_close_black_24dp.png" alt="" srcset=""></a>
+        </div>
+    </header>
+    <main>
+        <div id="form-div">
+            <form action="#" id="settings-form">
+                <h6>Tempo de pomodoro</h6>
+                <div class="form-group">
+                    <div class="input-field">
+                        <label for="test">Horas</label>
+                        <input type="text" name="work-time[hours]" id="work-hours" value="0">
+                    </div>
+                    <div class="input-field">
+                        <label for="test">Minutos</label>
+                        <input type="text" name="work-time[minutes]" id="work-minutes" value="25">
+                    </div>
+                    <div class="input-field">
+                        <label for="test">Segundos</label>
+                        <input type="text" name="work-time[seconds]" id="work-seconds" value="0">
+                    </div>
+                </div>
+                <h6>Intervalos</h6>
+                <div class="form-group">
+                    <div class="input-field">
+                        <label for="short-break">Curto(minutos)</label>
+                        <input type="text" name="short-break" id="short-break" value="5">
+                    </div>
+                    <div class="input-field">
+                        <label for="long-break">Longo(minutos)</label>
+                        <input type="text" name="long-break" id="long-break" value="15">
+                    </div>
+                    <div class="input-field">
+                        <label for="long-break-interval">Rod. entre pausas longas</label>
+                        <input type="text" name="long-break-interval" id="long-break-interval" value="4">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js" integrity="sha512-n/4gHW3atM3QqRcbCn6ewmpxcLAHGaDjpEBu4xZd47N0W2oQ+6q7oc3PXstrJYXcbNU1OHdQ1T7pAP+gi5Yu8g==" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function(){
+            get_input_values()
+
+            $("input[type='text']").on("blur", function(){
+                $(this).val($(this).val().padStart(2, "0"))
+
+                let current_val = localStorage.getItem(`${$(this).attr('id')}`);
+
+                if($(this).val() != current_val)
+                    localStorage.setItem(`${$(this).attr('id')}`, $(this).val())
+            })
+        })
+
+        function get_input_values(){
+            $("input[type='text']").each(function(){
+                $(this).val((localStorage.getItem(`${$(this).attr('id')}`) || $(this).val()).padStart(2, "0"))
+            })
+        }
+
+        
+    </script>
+</body>
+</html>

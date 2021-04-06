@@ -16,7 +16,7 @@ const App = {
             Emitter.on("notify-short-break", Notifyer.notify(NotifyTemplates.short_break))
             Emitter.on("notify-long-break", Notifyer.notify(NotifyTemplates.long_break))
 
-            View.time_render({ hours: '00', minutes: '00', seconds: '06'})
+            View.time_render(Timer.time_to_object(Timer.get_time()))
             View.button_render({ message: 'START', background: 'cyan', action: Timer.init})
         }catch(e){
             console.log(e.message)
