@@ -27,9 +27,12 @@ const Timer = {
     },
 
     get_time: () => {
-        let hours = parseInt(localStorage.getItem("work-hours")) || 0
-        let minutes = parseInt(localStorage.getItem("work-minutes")) || 0
-        let seconds = parseInt(localStorage.getItem("work-seconds")) || 0
+        let hours = parseInt(localStorage.getItem("work-hours"))
+        let minutes = parseInt(localStorage.getItem("work-minutes"))
+        let seconds = parseInt(localStorage.getItem("work-seconds"))
+
+        if(!hours && !minutes && !seconds)
+            return 25 * 60
 
         return ((hours * 3600) + (minutes * 60) + seconds)
     },
