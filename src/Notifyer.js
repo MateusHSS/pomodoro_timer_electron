@@ -21,7 +21,8 @@ const Notifyer = {
             }
             
             return new Notification( title, {
-                body
+                body,
+                icon
             })
         }
         
