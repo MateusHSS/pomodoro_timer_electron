@@ -65,6 +65,6 @@
 
 ## Usage
 ---------------------------------
-Before installation, execute the application, and pomodoro`s icon is appear in your shortcut icons like this
+Before installation, execute the application, and pomodoro`s icon is appear in your shortcut icons like this (left icon)
 
 ![shortcut-icons-img](./assets/tray-bar.png "Shortcut icons")
